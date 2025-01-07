@@ -13,8 +13,17 @@ runs:
     with:
       go-version: ${{ inputs.go-version }}
       
-  - run: |
+  - name: Run tests
+    run: |
       go test -coverprofile cover.out -v ./...
       go tool cover -func=cover.out
+      go tool cover -html=cover.out -o cover.html
     shell: bash
-    
+  
+  - name: Upload test coverage
+    uses: actions/upload-artifact@v4
+    if: always()
+    with:
+      name: coverage
+      path: cover.html
+      if-no-files-found: error
