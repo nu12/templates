@@ -1,0 +1,20 @@
+name: 'Run tests (Go)'
+description: 'Run go tests'
+inputs:
+  go-version:
+    description: 'Go version'
+    required: false
+    default: '1.22.5'
+runs:
+  using: "composite"
+  steps:
+  - uses: actions/checkout@v3
+  - uses: actions/setup-go@v4
+    with:
+      go-version: ${{ inputs.go-version }}
+      
+  - run: |
+      go test -coverprofile cover.out -v ./...
+      go tool cover -func=cover.out
+    shell: bash
+    
