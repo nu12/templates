@@ -1,0 +1,22 @@
+name: 'Run linting (Go)'
+description: 'Run go linting'
+inputs:
+  go-version:
+    description: 'Go version'
+    required: true
+  lint-version:
+    description: 'Lint version'
+    required: false
+    default: 'v1.60'
+runs:
+  using: "composite"
+  steps:
+  - uses: actions/checkout@v3
+  - uses: nu12/templates/actions/setup/go@main
+    with:
+      go-version: ${{ inputs.go-version }}
+  
+  - name: Lint
+    uses: golangci/golangci-lint-action@v3
+    with:
+      version: ${{ inputs.lint-version }}
