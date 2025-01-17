@@ -23,5 +23,5 @@ runs:
   - name: build
     shell: bash
     run: |
-      go build -o ${{ inputs.go-version }} ${{ inputs.go-main }}
+      go build -o ${{ inputs.name }} ${{ inputs.go-main }}
   
