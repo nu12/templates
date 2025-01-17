@@ -1,0 +1,27 @@
+name: 'Build (Go)'
+description: 'Build Go project'
+inputs:
+  go-version:
+    description: 'Go version'
+    required: true
+  name:
+    description: 'Name of the binary (output)'
+    required: true
+  go-main:
+    description: 'Main file of the project'
+    required: false
+    default: 'main.go'
+
+runs:
+  using: "composite"
+  steps:
+  - uses: actions/checkout@v3
+  - uses: nu12/templates/actions/setup/go@main
+    with:
+      go-version: ${{ inputs.go-version }}
+
+  - name: build
+    shell: bash
+    run: |
+      go build -o ${{ inputs.go-version }} ${{ inputs.go-main }}
+  

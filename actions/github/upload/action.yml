@@ -1,0 +1,19 @@
+name: 'Upload (Github)'
+description: 'Upload file to Github release'
+inputs:
+  release-name:
+    description: 'Name of the release'
+    required: true
+  upload-file:
+    description: 'Name of the file to upload'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+  - name: Add file to the release
+    env:
+      GH_TOKEN: ${{ github.TOKEN }}
+    shell: bash
+    run: |
+      gh release upload ${{ inputs.release-name }} ${{ inputs.upload-file }}

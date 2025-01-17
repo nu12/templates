@@ -1,0 +1,28 @@
+name: 'Zip'
+description: 'Create zip file'
+inputs:
+  file-to-zip:
+    description: 'Name of the release'
+    required: true
+  output-file:
+    description: 'Name of the file to upload'
+    required: true
+  util:
+    description: 'Command to use for zipping'
+    required: false
+    default: 'zip'
+
+runs:
+  using: "composite"
+  steps:
+  - name: Add binary to the release (zip)
+    if: ${{ inputs.util == 'zip' }}
+    shell: bash
+    run: |
+      zip ${{ inputs.output-file }} ${{ inputs.file-to-zip }}
+
+  - name: Add binary to the release (7z)
+    if: ${{ inputs.util == '7z' }}
+    shell: bash
+    run: |
+      7z a ${{ inputs.output-file }} ${{ inputs.file-to-zip }}
