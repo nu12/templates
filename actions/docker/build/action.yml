@@ -23,10 +23,11 @@ inputs:
   registry-password:
     description: 'Docker registry password'
     required: false
-    default: ${{ secrets.TOKEN }}
+    default: ''
   name:
     description: 'Name of the image'
-    required: true
+    required: false
+    default: ${{ github.repository }}
   platform:
     description: 'Platform to build for'
     required: false
@@ -49,6 +50,7 @@ runs:
 
   - name: Login to Docker Hub
     uses: docker/login-action@v2
+    if:  ${{ inputs.push == 'true' }}
     with:
       registry: ${{ inputs.registry }}
       username: ${{ inputs.registry-username }}
