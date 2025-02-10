@@ -1,0 +1,45 @@
+name: 'Build (Docker)'
+description: 'Build docker image'
+inputs:
+  name:
+    description: 'Name of the repo, project, or application'
+    required: true
+  platform:
+    description: 'Platform name'
+    required: false
+    default: 'linux-amd64'
+  go-verion:
+    description: 'Go version'
+    required: true
+  go-main:
+    description: 'Files to build package main'
+    required: false
+    default: 'main.go'
+  zip-util:
+    description: 'Zip utility command'
+    required: false
+    default: 'zip'
+  release-name:
+    description: 'Release name'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+  - name: Build
+    uses: nu12/templates/actions/build/go@main
+    with:
+      go-version: '${{ inputs.go-version }}'
+      go-main: '${{ inputs.go-main }}'
+      name: '${{ inputs.name }}'
+  - name: Zip
+    uses: nu12/templates/actions/utils/zip@main
+    with:
+      file-to-zip: '${{ inputs.name }}'
+      output-file: '${{ inputs.name }}-${{ inputs.platform }}.zip'
+      util: '${{ inputs.zip-util }}'
+  - name: Upload
+    uses: nu12/templates/actions/github/upload@main
+    with:
+      release-name: '${{ inputs.release-name }}'
+      upload-file: '${{ inputs.name }}-${{ inputs.platform }}.zip'
