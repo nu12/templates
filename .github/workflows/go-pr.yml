@@ -33,12 +33,12 @@ jobs:
         uses: nu12/templates/actions/lint/go@main
         if: ${{ inputs.run-lint }}
         with:
-          go-version: ${{ inputs.go-version }}
+          go-version: '${{ inputs.go-version }}'
       - name: Test
         uses: nu12/templates/actions/test/go@main
         if: ${{ inputs.run-test }}
         with:
-          go-version: ${{ inputs.go-version }}
+          go-version: '${{ inputs.go-version }}'
       - name: Build
         uses: nu12/templates/actions/build/docker@main
         if: ${{ inputs.run-docker-build }}
