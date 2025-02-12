@@ -1,0 +1,43 @@
+name: 'Pull Request (Go)'
+
+on:
+  workflow_call:
+    inputs:
+      go-version:
+        description: 'Go version'
+        required: true
+      run-lint:
+        description: 'Run lint'
+        required: true
+      run-test:
+        description: 'Run test'
+        required: true
+      run-docker-build:
+        description: 'Run docker build (without pushing the image)'
+        required: true
+      docker-tag:
+        description: 'Docker tag'
+        required: true
+
+jobs:
+  pr:
+    runs-on: ubuntu-latest
+    name: 'Pull Request (Go)'
+    steps:
+      - name: Lint
+        uses: nu12/templates/actions/lint/go@main
+        if: ${{ inputs.run-lint }}
+        with:
+          go-version: ${{ inputs.go-version }}
+      - name: Test
+        uses: nu12/templates/actions/test/go@main
+        if: ${{ inputs.run-test }}
+        with:
+          go-version: ${{ inputs.go-version }}
+      - name: Build
+        uses: nu12/templates/actions/build/docker@main
+        if: ${{ inputs.run-docker-build }}
+        with:
+          tag: ${{ inputs.docker-tag }}
+          registry-password: '${{ secrets.TOKEN }}'
+          push: false
