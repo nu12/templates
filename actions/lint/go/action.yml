@@ -7,7 +7,7 @@ inputs:
   lint-version:
     description: 'Lint version'
     required: false
-    default: 'v1.60'
+    default: 'v1.64'
 runs:
   using: "composite"
   steps:
@@ -17,6 +17,6 @@ runs:
       go-version: ${{ inputs.go-version }}
   
   - name: Lint
-    uses: golangci/golangci-lint-action@v3
+    uses: golangci/golangci-lint-action@v6
     with:
       version: ${{ inputs.lint-version }}
