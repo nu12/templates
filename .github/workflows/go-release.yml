@@ -1,0 +1,127 @@
+name: 'Release (Go)'
+
+on:
+  workflow_call:
+    inputs:
+      go-binary-name:
+        description: 'Go binary name'
+        required: true
+        type: string
+      go-main:
+        description: 'Go main files'
+        required: true
+        type: string
+      go-version:
+        description: 'Go version'
+        required: true
+        type: string
+      release-linux-amd64:
+        description: 'Release linux-amd64'
+        required: true
+        type: boolean
+      release-win-amd64:
+        description: 'Release win-amd64'
+        required: true
+        type: boolean
+      release-darwin-amd64:
+        description: 'Release darwin-amd64'
+        required: true
+        type: boolean
+      release-darwin-arm64:
+        description: 'Release darwin-arm64'
+        required: true
+        type: boolean
+      release-docker:
+        description: 'Release docker'
+        required: true
+        type: boolean
+      version:
+        description: 'Version to release'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: 'ubuntu-latest'
+    name: Release
+    steps:
+    - name: Release
+      uses: nu12/templates/actions/github/release@main
+      with:
+        version: '${{ inputs.version }}'
+
+  linux-amd64:
+    needs: [release]
+    runs-on: 'ubuntu-latest'
+    name: Build (linux-amd64)
+    if: ${{ inputs.release-linux-amd64 }}
+    steps:
+    - name: Build and Release
+      uses: nu12/templates/jobs/build-and-release/go@main
+      with:
+        go-version: '${{ inputs.go-version }}'
+        go-main: '${{ inputs.go-main }}'
+        name: '${{ inputs.go-binary-name }}'
+        platform: 'linux-amd64'
+        release-name: '${{ inputs.version }}'
+
+  win-amd64:
+    needs: [release]
+    runs-on: "windows-latest"
+    name: Build (win-amd64)
+    if: ${{ inputs.release-win-amd64 }}
+    steps:
+    - name: Build and Release
+      uses: nu12/templates/jobs/build-and-release/go@main
+      with:
+        go-version: '${{ inputs.go-version }}'
+        go-main: '${{ inputs.go-main }}'
+        name: '${{ inputs.go-binary-name }}'
+        platform: 'win-amd64'
+        zip-util: '7z'
+        release-name: '${{ inputs.version }}'
+
+  darwin-amd64:
+    needs: [release]
+    runs-on: "macos-13"
+    name: Build (darwin-amd64)
+    if: ${{ inputs.release-darwin-amd64 }}
+    steps:
+    - name: Build and Release
+      uses: nu12/templates/jobs/build-and-release/go@main
+      with:
+        go-version: '${{ inputs.go-version }}'
+        go-main: '${{ inputs.go-main }}'
+        name: '${{ inputs.go-binary-name }}'
+        platform: 'darwin-amd64'
+        release-name: '${{ inputs.version }}'
+  
+  darwin-arm64:
+    needs: [release]
+    runs-on: 'macos-latest'
+    name: Build (darwin-arm64)
+    if: ${{ inputs.release-darwin-arm64 }}
+    steps:
+    - name: Build and Release
+      uses: nu12/templates/jobs/build-and-release/go@main
+      with:
+        go-version: '${{ inputs.go-version }}'
+        go-main: '${{ inputs.go-main }}'
+        name: '${{ inputs.go-binary-name }}'
+        platform: 'darwin-arm64'
+        release-name: '${{ inputs.version }}'
+
+  docker:
+    needs: [release]
+    runs-on: 'ubuntu-latest'
+    name: Build (docker)
+    if: ${{ inputs.release-docker }}
+    steps:
+    - name: Build
+      uses: nu12/templates/actions/build/docker@main
+      with:
+        tag: '${{ inputs.version }}'
+        registry-password: '${{ secrets.TOKEN }}'
