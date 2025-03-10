@@ -58,7 +58,7 @@ runs:
     id: tag
     shell: bash
     run: |
-      export TAG=$(echo "${{ github.ref_name }}" | tr -d "v")
+      export TAG=$(echo "${{ inputs.tag }}" | tr -d "v")
       echo "value=$TAG" >> "$GITHUB_OUTPUT"
 
   - name: Build and push
