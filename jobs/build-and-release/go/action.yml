@@ -40,7 +40,7 @@ runs:
   - name: Zip
     uses: nu12/templates/actions/utils/zip@main
     with:
-      file-to-zip: '${{ inputs.name }}'
+      file-to-zip: '${{ inputs.name }}${{ inputs.name-extention }}'
       output-file: '${{ inputs.name }}-${{ inputs.platform }}.zip'
       util: '${{ inputs.zip-util }}'
   - name: Upload
