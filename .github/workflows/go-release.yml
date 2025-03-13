@@ -76,7 +76,8 @@ jobs:
       with:
         go-version: '${{ inputs.go-version }}'
         go-main: '${{ inputs.go-main }}'
-        name: '${{ inputs.go-binary-name }}.exe'
+        name: '${{ inputs.go-binary-name }}'
+        name-extention: '.exe'
         platform: 'win-amd64'
         zip-util: '7z'
         release-name: '${{ inputs.version }}'
