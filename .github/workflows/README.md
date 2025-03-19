@@ -2,8 +2,8 @@
 
 Table of contents:
 
-* [.github/workflows/go-pr.yml](#Pull-Request-(Go))
-* [.github/workflows/go-release.yml](#Release-(Go))
+* [.github/workflows/go-pr.yml](#pull-request-go)
+* [.github/workflows/go-release.yml](#release-go)
 
 ## Pull Request (Go)
 
