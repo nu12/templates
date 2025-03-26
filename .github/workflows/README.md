@@ -23,7 +23,7 @@ on:
 jobs:
   my-job:
     uses: .github/workflows/go-pr.yml@main
-    with: 
+    with:
       docker-tag: 
       go-version: 
       run-docker-build: 
@@ -60,7 +60,7 @@ on:
 jobs:
   my-job:
     uses: .github/workflows/go-release.yml@main
-    with: 
+    with:
       go-binary-name: 
       go-main: 
       go-version: 
