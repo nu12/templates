@@ -7,7 +7,7 @@ inputs:
   lint-version:
     description: 'Lint version'
     required: false
-    default: 'v2.5'
+    default: 'v2.6'
 runs:
   using: "composite"
   steps:
