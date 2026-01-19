@@ -84,7 +84,7 @@ jobs:
 
   darwin-amd64:
     needs: [release]
-    runs-on: "macos-13"
+    runs-on: "macos-15"
     name: Build (darwin-amd64)
     if: ${{ inputs.release-darwin-amd64 }}
     steps:
