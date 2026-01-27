@@ -1,0 +1,61 @@
+name: 'Pull Request (Rails)'
+
+on:
+  workflow_call:
+    inputs:
+      ruby-version:
+        description: 'Ruby version'
+        required: true
+        type: string
+      run-scan:
+        description: 'Run scan (brakeman)'
+        required: true
+        type: boolean
+      run-lint:
+        description: 'Run lint'
+        required: true
+        type: boolean
+      run-test:
+        description: 'Run test'
+        required: true
+        type: boolean
+      run-docker-build:
+        description: 'Run docker build (without pushing the image)'
+        required: true
+        type: boolean
+      docker-tag:
+        description: 'Docker tag'
+        required: true
+        type: string
+
+jobs:
+  pr:
+    runs-on: ubuntu-latest
+    name: 'Pull Request (Rails)'
+    steps:
+    - name: Scan
+      uses: nu12/templates/actions/scan/rails/v1@main
+      if: ${{ inputs.run-scan }}
+      with:
+        ruby-version: '${{ inputs.ruby-version }}'
+
+    - name: Lint
+      uses: nu12/templates/actions/lint/rails/v1@main
+      if: ${{ inputs.run-lint }}
+      with:
+        ruby-version: '${{ inputs.ruby-version }}'
+
+    - name: Test
+      uses: nu12/templates/actions/test/rails/v1@main
+      if: ${{ inputs.run-test }}
+      with:
+        ruby-version: '${{ inputs.ruby-version }}'
+
+    - name: Build
+      uses: nu12/templates/actions/build/docker@main
+      if: ${{ inputs.run-docker-build }}
+      with:
+        tag: ${{ inputs.docker-tag }}
+        registry-password: '${{ secrets.TOKEN }}'
+        push: false
+        platforms: 'linux/amd64'

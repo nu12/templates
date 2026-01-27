@@ -1,0 +1,38 @@
+name: 'Run tests (Rails)'
+description: 'Run rails tests'
+inputs:
+  ruby-version:
+    description: 'Ruby version'
+    required: true
+runs:
+  using: "composite"
+  steps:
+  - name: Install packages
+    run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config google-chrome-stable imagemagick ghostscript
+    shell: bash
+
+  - name: Checkout code
+    uses: actions/checkout@v6
+
+  - name: Setup Ruby
+    uses: nu12/templates/actions/setup/ruby/v1@main
+    with:
+      ruby-version: ${{ inputs.ruby-version }}
+
+  - name: Run tests
+    env:
+      RAILS_ENV: test
+    run: bin/rails db:test:prepare test test:system
+    shell: bash
+
+  - name: Keep screenshots from failed system tests
+    uses: actions/upload-artifact@v6
+    if: failure()
+    with:
+      name: screenshots
+      path: ${{ github.workspace }}/tmp/screenshots
+      if-no-files-found: ignore
+
+  
+
+  

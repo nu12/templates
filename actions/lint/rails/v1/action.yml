@@ -1,0 +1,20 @@
+name: 'Run linting (Rails)'
+description: 'Run rails linting'
+inputs:
+  ruby-version:
+    description: 'Ruby version'
+    required: true
+runs:
+  using: "composite"
+  steps:
+  - name: Checkout code
+    uses: actions/checkout@v6
+
+  - name: Setup Ruby
+    uses: nu12/templates/actions/setup/ruby/v1@main
+    with:
+      ruby-version: ${{ inputs.ruby-version }}
+
+  - name: Lint code for consistent style
+    run: bin/rubocop -f github
+    shell: bash
