@@ -9,7 +9,7 @@ jobs:
   job-name:
     runs-on: <runner>
     steps:
-    - uses: actions/build/go@main
+    - uses: actions/build/go/v1@main
       with:
         go-main: main.go
         go-version: 

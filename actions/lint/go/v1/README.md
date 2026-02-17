@@ -9,7 +9,7 @@ jobs:
   job-name:
     runs-on: <runner>
     steps:
-    - uses: actions/lint/go@main
+    - uses: actions/lint/go/v1@main
       with:
         go-version: 
         lint-version: v2.6

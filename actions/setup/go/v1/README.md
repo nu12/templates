@@ -1,6 +1,6 @@
-# Release (Github)
+# Setup (Go)
 
-Github release
+Setup Go
 
 ## Usage example
 
@@ -9,9 +9,9 @@ jobs:
   job-name:
     runs-on: <runner>
     steps:
-    - uses: actions/github/release@main
+    - uses: actions/setup/go/v1@main
       with:
-        version: 
+        go-version: 
 
 ```
 
@@ -19,5 +19,5 @@ jobs:
 
 |Name|Description|Required|Default value|
 |---|---|---|---|
-|version|Release version number|true||
+|go-version|Go version|true||
 

@@ -30,17 +30,17 @@ jobs:
     name: 'Pull Request (Go)'
     steps:
       - name: Lint
-        uses: nu12/templates/actions/lint/go@main
+        uses: nu12/templates/actions/lint/go/v1@main
         if: ${{ inputs.run-lint }}
         with:
           go-version: '${{ inputs.go-version }}'
       - name: Test
-        uses: nu12/templates/actions/test/go@main
+        uses: nu12/templates/actions/test/go/v1@main
         if: ${{ inputs.run-test }}
         with:
           go-version: '${{ inputs.go-version }}'
       - name: Build
-        uses: nu12/templates/actions/build/docker@main
+        uses: nu12/templates/actions/build/docker/v1@main
         if: ${{ inputs.run-docker-build }}
         with:
           tag: ${{ inputs.docker-tag }}
