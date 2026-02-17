@@ -20,7 +20,7 @@ runs:
   using: "composite"
   steps:
   - uses: actions/checkout@v6
-  - uses: nu12/templates/actions/setup/go@main
+  - uses: nu12/templates/actions/setup/go/v1@main
     with:
       go-version: ${{ inputs.go-version }}
 

@@ -9,7 +9,7 @@ jobs:
   job-name:
     runs-on: <runner>
     steps:
-    - uses: actions/github/upload@main
+    - uses: actions/github/upload/v1@main
       with:
         release-name: 
         upload-file: 

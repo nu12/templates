@@ -1,6 +1,6 @@
-# Build (Docker)
+# Build & Release
 
-Build docker image
+Build GO binary and upload artifact into a release
 
 ## Usage example
 
@@ -9,7 +9,7 @@ jobs:
   job-name:
     runs-on: <runner>
     steps:
-    - uses: jobs/build-and-release/go@main
+    - uses: jobs/build-and-release/go/v1@main
       with:
         go-main: main.go
         go-version: 

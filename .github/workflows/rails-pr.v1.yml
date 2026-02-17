@@ -52,7 +52,7 @@ jobs:
         ruby-version: '${{ inputs.ruby-version }}'
 
     - name: Build
-      uses: nu12/templates/actions/build/docker@main
+      uses: nu12/templates/actions/build/docker/v1@main
       if: ${{ inputs.run-docker-build }}
       with:
         tag: ${{ inputs.docker-tag }}

@@ -1,6 +1,6 @@
-# Setup (Go)
+# Run tests (Go)
 
-Setup Go
+Run go tests
 
 ## Usage example
 
@@ -9,7 +9,7 @@ jobs:
   job-name:
     runs-on: <runner>
     steps:
-    - uses: actions/setup/go@main
+    - uses: actions/test/go/v1@main
       with:
         go-version: 
 

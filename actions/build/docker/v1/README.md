@@ -9,7 +9,7 @@ jobs:
   job-name:
     runs-on: <runner>
     steps:
-    - uses: actions/build/docker@main
+    - uses: actions/build/docker/v1@main
       with:
         context: .
         dockerfile: Dockerfile

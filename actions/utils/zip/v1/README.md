@@ -9,7 +9,7 @@ jobs:
   job-name:
     runs-on: <runner>
     steps:
-    - uses: actions/utils/zip@main
+    - uses: actions/utils/zip/v1@main
       with:
         file-to-zip: 
         output-file: 
