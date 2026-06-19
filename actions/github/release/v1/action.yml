@@ -7,7 +7,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-  - uses: actions/checkout@v6
+  - uses: actions/checkout@v7
   - name: Create GH release
     env:
       GH_TOKEN: ${{ github.TOKEN }}
