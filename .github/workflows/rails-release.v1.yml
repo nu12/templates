@@ -8,7 +8,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     name: Release
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Release
       uses: nu12/templates/actions/github/release/v1@main
       with:
