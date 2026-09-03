@@ -6,5 +6,27 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
+  groups:
+    versions:
+      applies-to: version-updates
+      update-types: 
+      - major
+      - minor
+      - patch
+  assignees:
+  - "nu12"
+- package-ecosystem: github-actions
+  directories: 
+  - "/.github/workflows/*"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  groups:
+    versions:
+      applies-to: version-updates
+      update-types: 
+      - major
+      - minor
+      - patch
   assignees:
   - "nu12"

@@ -12,7 +12,7 @@ jobs:
     - uses: actions/lint/go/v1@main
       with:
         go-version: 
-        lint-version: v2.6
+        lint-version: v2.9
 
 ```
 
@@ -21,5 +21,5 @@ jobs:
 |Name|Description|Required|Default value|
 |---|---|---|---|
 |go-version|Go version|true||
-|lint-version|Lint version|false|v2.6|
+|lint-version|Lint version|false|v2.9|
 
